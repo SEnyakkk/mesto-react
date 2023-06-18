@@ -1,5 +1,6 @@
 # mesto-react
 
+реализация проекта mesto с помощью React App
 
 
 # Getting Started with Create React App

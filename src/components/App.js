@@ -1,4 +1,3 @@
-
 import { Header } from "./Header/Header";
 import { Main } from "./Main/Main";
 import { Footer } from "./Footer/Footer";
@@ -11,7 +10,8 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
-
+  const [selectedCard, setSelectedCard] = useState({})
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false)
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true)
@@ -25,10 +25,17 @@ function App() {
     setIsAddPlacePopupOpen(true)
   }
 
+  function handleCardClick(card) {
+    setSelectedCard(card)
+    setIsImagePopupOpen(true)
+
+  }
+
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false)
     setIsEditProfilePopupOpen(false)
     setIsAddPlacePopupOpen(false)
+    setIsImagePopupOpen(false)
   }
 
   return (
@@ -38,7 +45,7 @@ function App() {
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
-
+        onCardClick={handleCardClick}
 
       />
       <Footer />
@@ -120,6 +127,8 @@ function App() {
       />
 
       <PopupImage
+        card={selectedCard}
+        isOpen={isImagePopupOpen}
         onClose={closeAllPopups} />
     </>
 
