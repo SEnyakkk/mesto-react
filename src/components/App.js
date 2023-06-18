@@ -38,7 +38,7 @@ function App() {
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
-        
+
 
       />
       <Footer />
@@ -119,8 +119,8 @@ function App() {
         onClose={closeAllPopups}
       />
 
-      <PopupImage 
-      onClose={closeAllPopups} />
+      <PopupImage
+        onClose={closeAllPopups} />
     </>
 
   );
