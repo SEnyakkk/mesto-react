@@ -55,6 +55,7 @@ function App() {
         title={`Редактировать профиль`}
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
+        buttonText = {'Сохранить'}
       >
         <input
           type="text"
@@ -83,6 +84,7 @@ function App() {
         title={`Новое место`}
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
+        buttonText = {'Добавить'}
       >
         <input
           type="text"
@@ -109,6 +111,7 @@ function App() {
         title={`Обновить аватар`}
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
+        buttonText = {'Подтвердить'}
       >
         <input
           type="url"
@@ -124,6 +127,7 @@ function App() {
         name={`delete`}
         title={`Вы уверены?`}
         onClose={closeAllPopups}
+        buttonText = {'Удалить'}
       />
 
       <ImagePopup

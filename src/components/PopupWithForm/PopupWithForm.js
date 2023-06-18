@@ -1,4 +1,4 @@
-export function PopupWithForm({ name, title, children, isOpen, onClose }) {
+export function PopupWithForm({ name, title, children, isOpen, onClose, buttonText}) {
   return (
     <div className={`popup ${name}-popup ${isOpen && 'popup_opened'}`} >
       <div className="popup__container">
@@ -6,7 +6,7 @@ export function PopupWithForm({ name, title, children, isOpen, onClose }) {
         <h2 className="popup__title">{title}</h2>
         <form className="form" name={`${name}-editform`} noValidate="">
           {children}
-          <input type="submit" className="form__save" defaultValue="Сохранить" />
+          <button type="submit" className="form__save">{buttonText}</button> 
         </form>
       </div>
     </div>
