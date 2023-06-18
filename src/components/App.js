@@ -1,38 +1,32 @@
 
+import { Header } from "./Header/Header";
+import { Main } from "./Main/Main";
+import { Footer } from "./Footer/Footer";
+
+
 function App() {
+  function handleEditAvatarClick() {
+    document.querySelector('.avatar-popup').classList.add('popup_opened')
+  }
+
+  function handleEditProfileClick() {
+    document.querySelector('.profile-popup').classList.add('popup_opened')
+  }
+
+  function handleAddPlaceClick() {
+    document.querySelector('.element-popup').classList.add('popup_opened')
+  }
+
   return (
     <>
-      <header className="header">
-        <img
-          src="#"
-          alt="Места России"
-          className="header__logo"
-        />
-      </header>
-      <main className="main">
-        <section className="profile">
-          <div className="profile__nav">
-            <button type="button" className="profile__avatar-edit">
-              <img src="#" alt="фото профиля" className="profile__avatar" />
-            </button>
-            <div className="profile__info">
-              <div className="profile__info-container">
-                <h1 className="profile__info-title"> </h1>
-                <button className="profile__edit-button" type="button" />
-              </div>
-              <h2 className="profile__info-subtitle"> </h2>
-            </div>
-          </div>
-          <button className="profile__add-button" type="button" />
-        </section>
-        <template className="element-template" />
-        <section className="elements" aria-label="ваш фотоальбом">
-          <ul className="elements__list"></ul>
-        </section>
-      </main>
-      <footer className="footer">
-        <p className="footer__copyright">© 2023 Арсентий Огарь</p>
-      </footer>
+      <Header />
+      <Main
+        onAvatar={handleEditAvatarClick}
+        onProfile={handleEditProfileClick}
+        onPlace={handleAddPlaceClick}
+
+      />
+      <Footer />
       <div className="popup profile-popup">
         <div className="popup__container">
           <button className="popup__close-button" type="button" />
