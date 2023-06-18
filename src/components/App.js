@@ -3,28 +3,42 @@ import { Header } from "./Header/Header";
 import { Main } from "./Main/Main";
 import { Footer } from "./Footer/Footer";
 import { PopupWithForm } from "./PopupWithForm/PopupWithForm";
-
+import { PopupImage } from "./ImagePopup/ImagePopup";
+import { useState } from "react";
 
 function App() {
+
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
+
+
   function handleEditAvatarClick() {
-    document.querySelector('.avatar-popup').classList.add('popup_opened')
+    setIsEditAvatarPopupOpen(true)
   }
 
   function handleEditProfileClick() {
-    document.querySelector('.profile-popup').classList.add('popup_opened')
+    setIsEditProfilePopupOpen(true)
   }
 
   function handleAddPlaceClick() {
-    document.querySelector('.place-popup').classList.add('popup_opened')
+    setIsAddPlacePopupOpen(true)
+  }
+
+  function closeAllPopups() {
+    setIsEditAvatarPopupOpen(false)
+    setIsEditProfilePopupOpen(false)
+    setIsAddPlacePopupOpen(false)
   }
 
   return (
     <>
       <Header />
       <Main
-        onAvatar={handleEditAvatarClick}
-        onProfile={handleEditProfileClick}
-        onPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        
 
       />
       <Footer />
@@ -32,6 +46,8 @@ function App() {
       <PopupWithForm
         name={`profile`}
         title={`Редактировать профиль`}
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
       >
         <input
           type="text"
@@ -58,6 +74,8 @@ function App() {
       <PopupWithForm
         name={`place`}
         title={`Новое место`}
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
       >
         <input
           type="text"
@@ -82,6 +100,8 @@ function App() {
       <PopupWithForm
         name={`avatar`}
         title={`Обновить аватар`}
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
       >
         <input
           type="url"
@@ -96,16 +116,11 @@ function App() {
       <PopupWithForm
         name={`delete`}
         title={`Вы уверены?`}
+        onClose={closeAllPopups}
       />
 
-
-      <div className="popup popup_zoom">
-        <figure className="popup__figure-popup">
-          <button className="button popup__close-button " type="button" />
-          <img className="popup__figure-image" src="#" alt="#" />
-          <figcaption className="popup__figure-caption" />
-        </figure>
-      </div>
+      <PopupImage 
+      onClose={closeAllPopups} />
     </>
 
   );
