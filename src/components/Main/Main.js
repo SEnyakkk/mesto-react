@@ -16,7 +16,7 @@ export function Main({ onAvatar, onProfile, onPlace }) {
         </div>
         <button type="button" className="profile__add-button" onClick={onPlace} />
       </section>
-      <template className="element-template" />
+      <template className="place-template" />
       <section className="elements" aria-label="ваш фотоальбом">
         <ul className="elements__list"></ul>
       </section>

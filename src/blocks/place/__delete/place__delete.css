@@ -1,4 +1,4 @@
-.element__delete {
+.place__delete {
   cursor: pointer;
   margin: 0;
   padding: 0;
@@ -16,7 +16,7 @@
   transition: opacity 0.5s ease-in-out;
 }
 
-.element__delete:hover {
+.place__delete:hover {
   opacity: .5;
   transition: opacity 0.5s ease-in-out;
 }
