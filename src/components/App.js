@@ -18,6 +18,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState({})
   const [cards, setCards] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [deleteCard, setDeleteCard] = useState('')
+  // const [isLike, setIslike] = useState(false)
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true)
@@ -36,10 +38,54 @@ function App() {
     setIsImagePopupOpen(true)
   }
 
-  function handleCardDelete() {
+  function handleDeleteClick(id) {
+    setDeleteCard(id)
     setIsDeletePopupOpen(true)
   }
 
+  function handleCardDelete(evt) {
+    evt.preventDefault()
+    setIsLoading(true)
+    api.removeCard(deleteCard)
+      .then(() => {
+        setCards(cards.filter(card => {
+          return card._id !==deleteCard
+        }))
+        closeAllPopups()
+        setIsLoading(false)
+      })
+    .catch(console.error);
+  }
+
+//   function handleCardLike(card) {
+//     const isLiked = card.likes.some(i => i._id === currentUser._id);
+//     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+//         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+//     });
+// } 
+  // useEffect(() => {
+  //   setIslike(cards.likes.some(card => card._id === currentUser._id))
+  // }, [cards.likes, card._id]) 
+
+  function handleCardLike(card) {
+    const isLike = card.likes.some(i => i._id === currentUser._id);
+
+    if (!isLike) {
+      api.addlike(card._id)
+        .then((newCard) => {
+          setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+          // setIslike(true)
+        })
+        .catch(console.error);
+    } else {
+      api.removelike(card._id)
+        .then((newCard) => {
+          setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+          // setIslike(false)
+        })
+        .catch(console.error);
+    }
+  }
 
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false)
@@ -69,9 +115,10 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onCardClick={handleCardClick}
-          onCardDelete={handleCardDelete}
+          onCardDelete={handleDeleteClick}
           cards={cards}
           isLoading={isLoading}
+          onCardLike={handleCardLike}
 
         />
         <Footer />
@@ -155,6 +202,8 @@ function App() {
           onClose={closeAllPopups}
           buttonText={'Удалить'}
           isOpen={isDeletePopupOpen}
+          onSubmit={handleCardDelete}
+          isLoading={isLoading}
         />
 
         <ImagePopup

@@ -3,9 +3,9 @@ import { useContext } from "react"
 import { Card } from "../Card/Card"
 import CurrentUserContext from "../../contexts/CurrentUserContext"
 import Spinner from "../Spinner/Spinner"
-export function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardDelete, cards, isLoading }) {
- 
+export function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardDelete, cards, isLoading, onCardLike }) {
   const currentUser = useContext(CurrentUserContext)
+
 
 
 
@@ -37,6 +37,7 @@ export function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onC
                   card={data}
                   onCardClick={onCardClick}
                   onCardDelete={onCardDelete}
+                  onCardLike={onCardLike}
                 />
               </li>
             )
