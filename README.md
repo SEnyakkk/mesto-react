@@ -1,6 +1,8 @@
 # mesto-react
 
 реализация проекта mesto с помощью React App
+ссылка на страницу https://senyakkk.github.io/mesto-react/
+
 
 
 # Getting Started with Create React App
