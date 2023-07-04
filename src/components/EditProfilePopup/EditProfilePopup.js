@@ -6,15 +6,12 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 export function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const currentUser = React.useContext(CurrentUserContext);
   const [description, setDescription] = React.useState('');
-  const [name, setName] = React.useState('');
+  const [profileName, setProfileName] = React.useState('');
+  const { name, about } = currentUser;
 
-  React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser]);
 
   function handleNameChange(evt) {
-    setName(evt.target.value);
+    setProfileName(evt.target.value);
   }
 
   function handleDescriptionChange(evt) {
@@ -24,11 +21,18 @@ export function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     onUpdateUser({
-      name: name,
+      name: profileName,
       about: description,
     });
   }
 
+  React.useEffect(() => {
+    if (isOpen) {
+      setProfileName(name);
+      setDescription(about);
+    }
+  }, [isOpen, currentUser]);
+  
   return (
     <PopupWithForm
       name={`profile`}
@@ -46,7 +50,7 @@ export function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         required
         className={`form__data form__data_user_name`}
         name="username"
-        value={name}
+        value={profileName}
         onChange={handleNameChange}
         placeholder="Ведите имя"
 
