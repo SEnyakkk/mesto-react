@@ -23,7 +23,6 @@
 @import url(./blocks/form/__data/_invalid/form__data_invalid.css);
 @import url(./blocks/form/__save/form__save.css);
 @import url(./blocks/form/__save/_disabled/form__save_disabled.css);
-@import url(./components/Spinner/Spinner.css);
 
 /* блок header */
 @import url(./blocks/header/header.css);

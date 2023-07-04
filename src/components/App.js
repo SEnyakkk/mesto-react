@@ -4,8 +4,10 @@ import { Footer } from "./Footer/Footer";
 import { PopupWithForm } from "./PopupWithForm/PopupWithForm";
 import { ImagePopup } from "./ImagePopup/ImagePopup";
 import { useEffect, useState } from "react";
-import CurrentUserContext  from "../contexts/CurrentUserContext.js";
+import CurrentUserContext from "../contexts/CurrentUserContext.js";
 import { api } from "../utils/api";
+import { EditProfilePopup } from "./EditProfilePopup/EditProfilePopup";
+import { EditAvatarPopup } from "./EditAvatarPopup/EditAvatarPopup";
 
 function App() {
 
@@ -49,28 +51,18 @@ function App() {
     api.removeCard(deleteCard)
       .then(() => {
         setCards(cards.filter(card => {
-          return card._id !==deleteCard
+          return card._id !== deleteCard
         }))
         closeAllPopups()
         setIsLoading(false)
       })
-    .catch(console.error);
+      .catch(console.error);
   }
 
-//   function handleCardLike(card) {
-//     const isLiked = card.likes.some(i => i._id === currentUser._id);
-//     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-//         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-//     });
-// } 
-  // useEffect(() => {
-  //   setIslike(cards.likes.some(card => card._id === currentUser._id))
-  // }, [cards.likes, card._id]) 
-
   function handleCardLike(card) {
-    const isLike = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
 
-    if (!isLike) {
+    if (!isLiked) {
       api.addlike(card._id)
         .then((newCard) => {
           setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
@@ -106,6 +98,24 @@ function App() {
       .catch(console.error);
   }, [])
 
+  function handleUpdateUser(data) {
+    api.setUserInfo(data)
+      .then((values) => {
+        setCurrentUser(values);
+        closeAllPopups();
+      })
+      .catch(console.error);
+  }
+
+  function handleUpdateAvatar(data) {
+    api.setAvatar(data)
+      .then((values) => {
+        setCurrentUser(values);
+        closeAllPopups();
+      })
+      .catch(console.error);
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <>
@@ -123,34 +133,17 @@ function App() {
         />
         <Footer />
 
-        <PopupWithForm
-          name={`profile`}
-          title={`Редактировать профиль`}
+        <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
-          buttonText={'Сохранить'}
-        >
-          <input
-            type="text"
-            minLength={2}
-            maxLength={40}
-            required=""
-            className="form__data form__data_user_name"
-            name="username"
-            placeholder="Ведите имя"
-          />
-          <span className="popup__invalid popup__invalid_username" />
-          <input
-            type="text"
-            minLength={2}
-            maxLength={200}
-            required=""
-            className="form__data form__data_user_job"
-            name="userjob"
-            placeholder="О себе"
-          />
-          <span className="popup__invalid popup__invalid_userjob" />
-        </PopupWithForm>
+          onUpdateUser={handleUpdateUser}
+        />
+
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+        />
+
 
         <PopupWithForm
           name={`place`}
@@ -177,23 +170,6 @@ function App() {
             placeholder="Ссылка на картинку"
           />
           <span className=" popup__invalid popup__invalid_userurl " />
-        </PopupWithForm>
-
-        <PopupWithForm
-          name={`avatar`}
-          title={`Обновить аватар`}
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          buttonText={'Подтвердить'}
-        >
-          <input
-            type="url"
-            required=""
-            className="form__data form__data_user_url "
-            name="avatar"
-            placeholder="Ссылка на картинку"
-          />
-          <span className=" popup__invalid popup__invalid_avatar " />
         </PopupWithForm>
 
         <PopupWithForm

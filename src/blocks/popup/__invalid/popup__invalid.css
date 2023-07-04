@@ -7,7 +7,7 @@
   color: red;
   width: 358px;
   min-height: 30px;
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 
 @media screen and (max-width: 634px) {

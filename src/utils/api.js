@@ -32,8 +32,8 @@ export class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: data.username,
-        about: data.userjob
+        name: data.name,
+        about: data.about
       })
     })
   }

@@ -6,10 +6,6 @@ import Spinner from "../Spinner/Spinner"
 export function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardDelete, cards, isLoading, onCardLike }) {
   const currentUser = useContext(CurrentUserContext)
 
-
-
-
-
   return (
     <main className="main">
       <section className="profile">
