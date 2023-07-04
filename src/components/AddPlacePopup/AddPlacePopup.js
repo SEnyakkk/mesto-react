@@ -12,9 +12,14 @@ export function AddPlacePopup({onAddCard, isOpen, onClose}) {
       name: nameRef.current.value,
       link: linkRef.current.value
     });
-    nameRef.current.value = "";
-    linkRef.current.value = "";
   }
+
+  React.useEffect(() => {
+    if (!isOpen) {
+      nameRef.current.value = "";
+      linkRef.current.value = "";
+    }
+  }, [isOpen]);
 
   return (
     <PopupWithForm

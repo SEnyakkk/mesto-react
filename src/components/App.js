@@ -49,14 +49,12 @@ function App() {
 
   function handleCardDelete(evt) {
     evt.preventDefault()
-    setIsLoading(true)
     api.removeCard(deleteCard)
       .then(() => {
         setCards(cards.filter(card => {
           return card._id !== deleteCard
         }))
         closeAllPopups()
-        setIsLoading(false)
       })
       .catch(console.error);
   }
@@ -67,18 +65,26 @@ function App() {
       api.addlike(card._id)
         .then((newCard) => {
           setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-          // setIslike(true)
         })
         .catch(console.error);
     } else {
       api.removelike(card._id)
         .then((newCard) => {
           setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-          // setIslike(false)
         })
         .catch(console.error);
     }
   }
+
+  // лайки замечательно удаляются, но ставятся только после перезагрузки. 
+  // function handleCardLike(card) {
+  //   const isLiked = card.likes.some(i => i._id === currentUser._id);
+  //   !isLiked ? api.addlike(card._id) : api.removelike(card._id)
+  //     .then((newCard) => {
+  //       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+  //     })
+  //     .catch(console.error);
+  // }
 
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false)
@@ -159,7 +165,7 @@ function App() {
           onClose={closeAllPopups}
           onAddCard={handleAddPlaceSubmit}
         />
-        
+
 
         <PopupWithForm
           name={`delete`}
@@ -168,7 +174,6 @@ function App() {
           buttonText={'Удалить'}
           isOpen={isDeletePopupOpen}
           onSubmit={handleCardDelete}
-          isLoading={isLoading}
         />
 
         <ImagePopup
